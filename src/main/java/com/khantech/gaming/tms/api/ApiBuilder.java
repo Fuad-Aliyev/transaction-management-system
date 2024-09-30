@@ -39,7 +39,8 @@ public interface ApiBuilder {
      * It includes a failure status, the current timestamp, and a list of errors generated from the exception.
      *
      * @param ex the {@link RuntimeException} that caused the failure, which will be used to generate the error details.
-     * @return an instance of {@link ApiInfo} containing the failure status, timestamp, and the error generated from the exception.
+     * @return an instance of {@link ApiInfo} containing the failure status, timestamp, and the error generated
+     * from the exception.
      */
     default ApiInfo generateApiInfo(RuntimeException ex){
         ApiInfo apiInfo = new ApiInfo();
@@ -52,12 +53,12 @@ public interface ApiBuilder {
     }
 
     /**
-     * Generates a generic {@link ApiError} based on a runtime exception.
-     * This method will mask internal details by returning a generic error code and description,
-     * but includes the original exception message in the reason field for logging purposes.
+     * Generates an {@link ApiError} object based on a {@link RuntimeException}.
+     * This method creates an error response with a general error code, description,
+     * and a detailed reason based on the exception's message.
      *
-     * @param ex the {@link RuntimeException} that occurred, which will be used to generate the error details.
-     * @return an instance of {@link ApiError} containing the generic error code, description, and the original error message as the reason.
+     * @param ex the {@link RuntimeException} that was thrown during execution.
+     * @return an {@link ApiError} object containing the error code, description, and reason.
      */
     default ApiError generateApiError(RuntimeException ex){
         ApiError apiError = new ApiError();
@@ -69,12 +70,15 @@ public interface ApiBuilder {
     }
 
     /**
-     * Generates an {@link ApiInfo} object representing a failed operation caused by a custom {@link BaseApiRuntimeException}.
+     * Generates an {@link ApiInfo} object representing a failed operation caused by a custom
+     * {@link BaseApiRuntimeException}.
      * This method wraps the exception details into an {@link ApiError} and attaches it to the {@link ApiInfo}.
-     * The {@link ApiInfo} contains a failure status, the current timestamp, and the specific error generated from the exception.
+     * The {@link ApiInfo} contains a failure status, the current timestamp, and the specific error generated from
+     * the exception.
      *
      * @param ex the {@link BaseApiRuntimeException} that triggered the failure, used to generate detailed error information.
-     * @return an instance of {@link ApiInfo} containing the failure status, timestamp, and the error generated from the custom exception.
+     * @return an instance of {@link ApiInfo} containing the failure status, timestamp, and the error generated from
+     * the custom exception.
      */
     default ApiInfo generateApiInfo(BaseApiRuntimeException ex){
         ApiInfo apiInfo = new ApiInfo();
@@ -102,6 +106,14 @@ public interface ApiBuilder {
         return apiError;
     }
 
+    /**
+     * Generates an {@link ApiInfo} object based on a {@link MethodArgumentNotValidException}.
+     * This method sets the timestamp, success status, failure status, and error details
+     * generated from the exception.
+     *
+     * @param ex the {@link MethodArgumentNotValidException} thrown during validation failure.
+     * @return an {@link ApiInfo} object containing the error details and failure status.
+     */
     default ApiInfo generateApiInfo(MethodArgumentNotValidException ex){
         ApiInfo apiInfo = new ApiInfo();
         apiInfo.setTimestamp(timeStamp());
@@ -112,6 +124,16 @@ public interface ApiBuilder {
         return apiInfo;
     }
 
+    /**
+     * Generates a list of {@link ApiError} objects based on the field errors present
+     * in the {@link MethodArgumentNotValidException}.
+     * Each field error in the exception is mapped to an {@link ApiError} containing a
+     * description, code, and reason explaining the validation issue.
+     *
+     * @param ex the {@link MethodArgumentNotValidException} containing field errors
+     *           that occurred during validation.
+     * @return a list of {@link ApiError} objects detailing the validation errors.
+     */
     default List<ApiError> generateApiErrors(MethodArgumentNotValidException ex) {
         List<ApiError> errors = new ArrayList<>();
 
@@ -168,7 +190,8 @@ public interface ApiBuilder {
     }
 
     /**
-     * Generates a {@link CollectionMessage} response for a collection of data items, wrapping the items and success information.
+     * Generates a {@link CollectionMessage} response for a collection of data items,
+     * wrapping the items and success information.
      *
      * @param collection the collection of data items to be wrapped.
      * @param <L>        the type of the data items.

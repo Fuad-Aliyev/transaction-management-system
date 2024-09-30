@@ -63,9 +63,6 @@ public class TransactionCreationService implements TransactionOperation<Transact
      * @return The created and saved {@link Transaction}.
      *
      * @throws WalletNotFoundException if the wallet with the provided ID is not found.
-     * @throws InsufficientBalanceWithPendingTransactionsException if the wallet does not have enough effective balance
-     *         to cover the DEBIT transaction.
-     * @throws TransactionValidationException if any validation issues occur during the transaction process.
      */
     @Override
     @Transactional
