@@ -1,11 +1,8 @@
 package com.khantech.gaming.tms.scheduler;
 
 import com.khantech.gaming.tms.service.TransactionOperation;
-import com.khantech.gaming.tms.service.TransactionService;
-import com.khantech.gaming.tms.service.impl.TransactionBatchProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
