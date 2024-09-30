@@ -48,8 +48,6 @@ public class TransactionApprovalService implements TransactionOperation<Long, Tr
      * @return The approved {@link Transaction} with updated status.
      *
      * @throws TransactionNotFoundException if the transaction with the provided ID is not found.
-     * @throws TransactionNotAwaitingApprovalException if the transaction is not in the
-     *         {@link TransactionStatus#AWAITING_APPROVAL} state.
      */
     @Override
     @Transactional
